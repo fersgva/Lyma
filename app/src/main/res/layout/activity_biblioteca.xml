@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#282828"
+    tools:context=".Biblioteca">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClickIrALyrics"
+            app:srcCompat="@drawable/icon_iniciocasa" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClickIrABuscar"
+            app:srcCompat="@drawable/icon_buscar" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/icon_biblioteca" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lV_biblioteca"
+        android:layout_width="328dp"
+        android:layout_height="576dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="137dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lyma_logo_big" />
+
+    <ImageView
+        android:id="@+id/imageView_TresPuntitos"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_trespuntitos" />
+</androidx.constraintlayout.widget.ConstraintLayout>

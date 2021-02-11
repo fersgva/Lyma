@@ -4,16 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#282828"
     tools:context=".Lyrics">
 
-    <Button
-        android:id="@+id/button_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="284dp"
+    <ImageView
+        android:id="@+id/imageView_TresPuntitos"
+        android:layout_width="42dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:clickable="true"
         android:onClick="ejecutar"
-        android:text="PLAY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_trespuntitos" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="137dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_TresPuntitos"
+        app:layout_constraintHorizontal_bias="0.091"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lyma_logo_big" />
+
+    <ListView
+        android:id="@+id/lV_lyrics"
+        android:layout_width="329dp"
+        android:layout_height="483dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:background="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/textView_fondoRepro"
+        android:layout_width="329dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="28dp"
+        android:background="#65D172"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lV_lyrics" />
+
+    <ImageView
+        android:id="@+id/imageView_Play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:onClick="ejecutar"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPortada"
+        app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <ImageView
+        android:id="@+id/imageView_Fav"
+        android:layout_width="34dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:onClick="ejecutar"
+        app:layout_constraintEnd_toEndOf="@+id/textView_fondoRepro"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/seekBar_Cancion"
+        app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
+        app:srcCompat="@drawable/icon_anadircancionblanco" />
+
+    <SeekBar
+        android:id="@+id/seekBar_Cancion"
+        android:layout_width="182dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="25dp"
+        android:background="#00B59292"
+        app:layout_constraintStart_toEndOf="@+id/imageView_Play"
+        app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro" />
+
+    <ImageView
+        android:id="@+id/imageViewPortada"
+        android:layout_width="51dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="8dp"
+        android:shape="ring"
+        app:layout_constraintStart_toStartOf="@+id/textView_fondoRepro"
+        app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:srcCompat="@drawable/icon_iniciocasa" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClickIrABuscar"
+            app:srcCompat="@drawable/icon_buscar" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="242dp"
+            android:layout_height="41dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:onClick="onClickIrABiblioteca"
+            app:srcCompat="@drawable/icon_biblioteca" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.lyma;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Service;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,31 +15,28 @@ import android.widget.Toast;
 import java.io.IOException;
 
 public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
-    String idVideo;
     Button botonPlay;
-    String urlYT;
+    String urlDeezer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lyrics);
 
-        botonPlay = findViewById(R.id.button_play);
+        //botonPlay = findViewById(R.id.button_play);
 
-        idVideo = "aB52h93Bax0"; //CAMBIAR LUEGO
-        urlYT = "https://www.youtube.com/watch?v=" + idVideo;
-        //https://www.youtube.com/watch?v=aB52h93Bax0
+        urlDeezer = "LO DE LA API";
     }
     public void ejecutar (View v) {
         MediaPlayer player = new MediaPlayer();
         player.setOnPreparedListener(this);
         try {
-            player.setDataSource("https://cdn.kapwing.com/final_602106f723ef4b00442109cd_876474.mp3"); //urlYT
+            player.setDataSource(urlDeezer);
             player.prepareAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
         Toast t = Toast.makeText(this,
-                "Espere un momento mientras se carga el mp3",
+                "Espere un momento mientras se carga la canción",
                 Toast.LENGTH_SHORT);
         t.show();
     }
@@ -46,9 +44,16 @@ public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedL
     public void onPrepared(MediaPlayer mediaPlayer)
     {
         mediaPlayer.start();
-        if (mediaPlayer.isPlaying())
-        {
-            Log.i("hola", "FUNJCIOAN");
-        }
+    }
+
+    public void onClickIrABuscar (View v)
+    {
+        Intent i = new Intent(this, Buscar.class);
+        startActivity(i);
+    }
+    public void onClickIrABiblioteca (View v)
+    {
+        Intent i = new Intent(this, Biblioteca.class);
+        startActivity(i);
     }
 }

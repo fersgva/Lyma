@@ -5,11 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#282828"
-    tools:context=".MainActivity" >
+    tools:context=".CrearCuenta" >
 
+    <Button
+        android:id="@+id/buttonCrearCuenta5"
+        android:layout_width="190dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="56dp"
+        android:background="#65D172"
+        android:capitalize="characters"
+        android:fontFamily="@font/gotham_bold"
+        android:onClick="onClickCrearCuenta"
+        android:text="Crear Cuenta"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextContrasenaEP" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView5"
         android:layout_width="282dp"
         android:layout_height="135dp"
         android:layout_marginTop="24dp"
@@ -18,6 +35,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lyma_logo_big" />
+
+    <TextView
+        android:id="@+id/textView_Nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/gotham_bold"
+        android:text="Nombre:"
+        android:textColor="#65D172"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <TextView
         android:id="@+id/textView_CorreoE"
@@ -31,7 +62,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNombreEP" />
+
+    <EditText
+        android:id="@+id/editTextNombreEP"
+        android:layout_width="228dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="32dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="@font/gotham_bold"
+        android:gravity="center|center_vertical"
+        android:hapticFeedbackEnabled="false"
+        android:inputType="textPersonName"
+        android:shadowColor="#00000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Nombre" />
 
     <EditText
         android:id="@+id/editTextCorreoEEP"
@@ -53,6 +104,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_CorreoE" />
 
+    <TextView
+        android:id="@+id/textView_Contrasena5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/gotham_bold"
+        android:text="Contraseña:"
+        android:textColor="#65D172"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCorreoEEP" />
+
     <EditText
         android:id="@+id/editTextContrasenaEP"
         android:layout_width="228dp"
@@ -71,60 +136,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Contrasena" />
-
-    <TextView
-        android:id="@+id/textView_Contrasena"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/gotham_bold"
-        android:text="Contraseña:"
-        android:textColor="#65D172"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCorreoEEP" />
-
-    <Button
-        android:id="@+id/buttonIniciarSesion"
-        android:layout_width="190dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="72dp"
-        android:background="#65d172"
-        android:capitalize="characters"
-        android:fontFamily="@font/gotham_bold"
-        android:onClick="onClickIniciarSesion"
-        android:shadowColor="#3A3939"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="0"
-        android:text="Iniciar Sesión"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContrasenaEP" />
-
-    <Button
-        android:id="@+id/buttonCrearCuenta"
-        android:layout_width="190dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="48dp"
-        android:background="#65D172"
-        android:capitalize="characters"
-        android:fontFamily="@font/gotham_bold"
-        android:onClick="onClickIrACrearCuenta"
-        android:text="Crear Cuenta"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonIniciarSesion" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView_Contrasena5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
