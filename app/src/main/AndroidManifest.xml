@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Perfil"></activity>
+        <activity android:name=".Adaptador"></activity>
+        <activity android:name=".Perfil" />
         <activity android:name=".Biblioteca" />
         <activity android:name=".Buscar" />
         <activity android:name=".CrearCuenta" />
