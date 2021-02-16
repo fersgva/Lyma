@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Buscar extends AppCompatActivity {
 
-    ArrayList<Cancion>CancionesBuscadas;
+    ArrayList<Cancion>CancionesBuscadas = new ArrayList<>();
     ListView buscar;
     Button Boton_buscar;
     TextView textIntroducir;

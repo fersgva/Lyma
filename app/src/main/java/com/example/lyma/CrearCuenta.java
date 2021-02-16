@@ -36,7 +36,7 @@ public class CrearCuenta extends AppCompatActivity {
         contraseña = findViewById(R.id.editTextContrasenaEP);
         crearCuenta = findViewById(R.id.buttonCrearCuenta5);
         gson = new Gson();
-        preferenciasApp = getSharedPreferences("com.example.lyma11",MODE_PRIVATE);
+        preferenciasApp = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
 
         //CARGADO DE DATOS.
         String datosCargados = preferenciasApp.getString("usuarios", null);

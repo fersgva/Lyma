@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         iniciar = findViewById(R.id.buttonIniciarSesion);
         crear = findViewById(R.id.buttonCrearCuenta);
 
-        preferencesusuaio = getSharedPreferences("com.example.lyma11",MODE_PRIVATE);
+        preferencesusuaio = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
         String datosCargados = preferencesusuaio.getString("usuarios", null);
 
         //--------------------PROCESO DE CARGADO.--------------------------//
