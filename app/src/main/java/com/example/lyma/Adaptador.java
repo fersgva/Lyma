@@ -47,7 +47,7 @@ public class Adaptador extends BaseAdapter {
         añadir = convertView.findViewById(R.id.botonAnadir);
 
         TextoCancion.setText(Cancion.getTitulo());
-        fotoCancion.setImageResource(Cancion.getFoto());
+        //fotoCancion.setImageResource(Cancion.getUrlFoto());
 
         return convertView;
     }

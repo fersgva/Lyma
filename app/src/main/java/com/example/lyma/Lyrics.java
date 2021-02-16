@@ -23,8 +23,8 @@ import java.io.IOException;
 public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
     ImageView foto , play , mas;
     SeekBar cancion;
-
-    String urlDeezer;
+    public static String urlDeezer;
+    String nomArtista, nomCancion, urlLyrics, busqueda;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +34,20 @@ public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedL
         play = findViewById(R.id.imageView_Play);
         mas = findViewById(R.id.imageView_Fav);
         cancion = findViewById(R.id.seekBar_Cancion);
-        urlDeezer = "LO DE LA API";
+
+        nomArtista = Buscar.artistaCancion;
+        nomCancion = Buscar.tituloCancion;
+        nomArtista = nomArtista.toLowerCase();
+        nomCancion = nomCancion.toLowerCase();
+        urlLyrics = "https://www.azlyrics.com/lyrics/"+ nomArtista + "/" + nomCancion + ".html";
+        DownloadTaskLyrics task = new DownloadTaskLyrics();
+        task.execute(urlLyrics);
+
+        DownloadTaskDeezer taskD = new DownloadTaskDeezer();
+        busqueda = Buscar.tituloCancion + "%20" + Buscar.artistaCancion;
+        taskD.execute("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + busqueda);
     }
-    public void ejecutar (View v) {
+    public void playCancion (View v) {
         MediaPlayer player = new MediaPlayer();
         player.setOnPreparedListener(this);
         try {

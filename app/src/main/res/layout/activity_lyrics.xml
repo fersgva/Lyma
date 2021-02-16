@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:onClick="ejecutar"
+        android:onClick="playCancion"
         app:layout_constraintStart_toEndOf="@+id/imageViewPortada"
         app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
         app:srcCompat="@android:drawable/ic_media_play" />
@@ -77,7 +77,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:onClick="ejecutar"
+        android:onClick="playCancion"
         app:layout_constraintEnd_toEndOf="@+id/textView_fondoRepro"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/seekBar_Cancion"

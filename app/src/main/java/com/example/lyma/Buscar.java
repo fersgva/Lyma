@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,21 +34,27 @@ public class Buscar extends AppCompatActivity {
         Boton_buscar = findViewById(R.id.buttonBuscarB);
         textIntroducir = findViewById(R.id.editTextBuscarB);
 
+        adaptador = new Adaptador(DownloadTask.CancionesBuscadasDT,this);
+        buscar.setAdapter(adaptador);
+
         Intent i = getIntent();
         i.getStringExtra("usuario");
-
-        adaptador = new Adaptador(CancionesBuscadas,this);
-        buscar.setAdapter(adaptador);
     }
 
-    public void onClickBuscarCancion (View V)
+    public void onClickBuscarCancion (View v)
     {
-        if (textIntroducir.getText().toString().compareTo(null) != 1)
+        //CancionesBuscadas.clear();
+        adaptador.notifyDataSetChanged();
+        if (true)
         {
             DownloadTask task = new DownloadTask();
+            System.out.println(task.CancionesBuscadasDT.size());
             busqueda = textIntroducir.getText().toString();
             busqueda = busqueda.replaceAll(" ", "%20");
             task.execute("https://genius.p.rapidapi.com/search?q=" + busqueda);
+            System.out.println(task.CancionesBuscadasDT.size());
+            CancionesBuscadas = task.CancionesBuscadasDT;
+            adaptador.notifyDataSetChanged();
         }
         else
         {
@@ -55,6 +62,13 @@ public class Buscar extends AppCompatActivity {
                     "Introduzca un título...",
                     Toast.LENGTH_SHORT);
             t.show();
+        }
+
+        System.out.println("despues de oclick");
+        for (int j = 0; j < CancionesBuscadas.size() ; j++)
+        {
+            System.out.println("AAAAAAAaa" + CancionesBuscadas.get(j).titulo);
+            Log.i("despues", CancionesBuscadas.get(j).titulo );
         }
     }
     public void onClickIrALyrics (View v)

@@ -4,14 +4,12 @@ import android.widget.ImageView;
 
 public class Cancion {
 
-    String titulo;
-    int foto;
-    boolean guardado;
+    String titulo, artistaNombre, urlFoto;
 
-    public Cancion(String titulo, int foto, boolean guardado) {
+    public Cancion(String titulo, String artistaNombre, String urlFoto) {
         this.titulo = titulo;
-        this.foto = foto;
-        this.guardado = guardado;
+        this.artistaNombre = artistaNombre;
+        this.urlFoto = urlFoto;
     }
 
     public String getTitulo() {
@@ -22,19 +20,19 @@ public class Cancion {
         this.titulo = titulo;
     }
 
-    public int getFoto() {
-        return foto;
+    public String getArtistaNombre() {
+        return artistaNombre;
     }
 
-    public void setFoto(int foto) {
-        this.foto = foto;
+    public void setArtistaNombre(String artistaNombre) {
+        this.artistaNombre = artistaNombre;
     }
 
-    public boolean isGuardado() {
-        return guardado;
+    public String getUrlFoto() {
+        return urlFoto;
     }
 
-    public void setGuardado(boolean guardado) {
-        this.guardado = guardado;
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 }
