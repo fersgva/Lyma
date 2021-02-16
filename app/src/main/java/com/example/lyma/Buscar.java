@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,8 @@ public class Buscar extends AppCompatActivity {
     Button Boton_buscar;
     TextView textIntroducir;
     Adaptador adaptador;
-
+    String busqueda = " ";
+    public static String tituloCancion, artistaCancion, urlPortadaCancion, completoTitulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +33,30 @@ public class Buscar extends AppCompatActivity {
         Boton_buscar = findViewById(R.id.buttonBuscarB);
         textIntroducir = findViewById(R.id.editTextBuscarB);
 
-        adaptador = new Adaptador(CancionesBuscadas,this);
-        buscar.setAdapter(adaptador);
-
         Intent i = getIntent();
         i.getStringExtra("usuario");
+
+        adaptador = new Adaptador(CancionesBuscadas,this);
+        buscar.setAdapter(adaptador);
     }
 
+    public void onClickBuscarCancion (View V)
+    {
+        if (textIntroducir.getText().toString().compareTo(null) != 1)
+        {
+            DownloadTask task = new DownloadTask();
+            busqueda = textIntroducir.getText().toString();
+            busqueda = busqueda.replaceAll(" ", "%20");
+            task.execute("https://genius.p.rapidapi.com/search?q=" + busqueda);
+        }
+        else
+        {
+            Toast t = Toast.makeText(this,
+                    "Introduzca un título...",
+                    Toast.LENGTH_SHORT);
+            t.show();
+        }
+    }
     public void onClickIrALyrics (View v)
     {
         Intent i = new Intent(this, Lyrics.class);
