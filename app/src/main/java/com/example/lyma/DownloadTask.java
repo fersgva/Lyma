@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class DownloadTask extends AsyncTask<String, Void, Void>
 {
     String titulo, artistaNombre, urlcancion;
-    public static ArrayList<Cancion> CancionesBuscadasDT = new ArrayList<>();
+    public static ArrayList<Cancion> cancionesBuscadasDT = new ArrayList<>(); //Minúscula esa variable, pleasssse
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected Void doInBackground(String... urls)
@@ -60,11 +60,18 @@ public class DownloadTask extends AsyncTask<String, Void, Void>
                 //System.out.println(cancion.getString("song_art_image_url"));
                 urlcancion = cancion.getString("song_art_image_url");
 
-                CancionesBuscadasDT.add(new Cancion(titulo, artistaNombre, urlcancion));
+                cancionesBuscadasDT.add(new Cancion(titulo, artistaNombre, urlcancion));
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        System.out.println(cancionesBuscadasDT.size());
+        Buscar.onTaskFinished(cancionesBuscadasDT);
     }
 }
