@@ -26,9 +26,10 @@ import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
-public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedListener {
+public class Lyrics extends AppCompatActivity{
     ImageView foto , play , mas;
     SeekBar cancion;
+    MediaPlayer player;
     public static String urlDeezer;
     String nomArtista, nomCancion, urlLyrics, busquedaSong, urlPortada;
     static EditText ponerLetras;
@@ -74,24 +75,42 @@ public class Lyrics extends AppCompatActivity implements MediaPlayer.OnPreparedL
         DownloadTaskDeezer taskD = new DownloadTaskDeezer();
         busquedaSong = Buscar.tituloCancion + "%20" + Buscar.artistaCancion;
         taskD.execute("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + busquedaSong);
+
+
+        play.setVisibility(View.INVISIBLE);
+        prepararCancion();
+
+
     }
-    public void playCancion (View v) {
-        MediaPlayer player = new MediaPlayer();
-        player.setOnPreparedListener(this);
+
+    void prepararCancion()
+    {
+        player = new MediaPlayer();
+        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                play.setVisibility(View.VISIBLE);
+            }
+        });
         try {
             player.setDataSource(urlDeezer);
             player.prepareAsync();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Toast t = Toast.makeText(this,
-                "Espere un momento mientras se carga la canción",
-                Toast.LENGTH_SHORT);
-        t.show();
+
+    }
+    public void playCancion (View v)
+    {
+        if(!player.isPlaying())
+            player.start();
+        else
+            player.pause();
     }
 
     public void onPrepared(MediaPlayer mediaPlayer)
     {
+        System.out.println("Preparado!");
         mediaPlayer.start();
     }
 
