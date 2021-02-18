@@ -4,17 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Buscar extends AppCompatActivity {
@@ -25,7 +34,8 @@ public class Buscar extends AppCompatActivity {
     TextView textIntroducir;
     static Adaptador adaptador;
     String busqueda = " ";
-    public static String tituloCancion, artistaCancion, urlPortadaCancion, completoTitulo;
+    public static String tituloCancion, artistaCancion, urlPortadaCancion;
+    static ImageView imagenPortada;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +43,31 @@ public class Buscar extends AppCompatActivity {
         buscar = findViewById(R.id.lV_buscar);
         Boton_buscar = findViewById(R.id.buttonBuscarB);
         textIntroducir = findViewById(R.id.editTextBuscarB);
+        imagenPortada = findViewById(R.id.fotoCancion);
 
         adaptador = new Adaptador(DownloadTask.cancionesBuscadasDT,this);
         buscar.setAdapter(adaptador);
 
         Intent i = getIntent();
         i.getStringExtra("usuario");
+
+        buscar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(Buscar.this, Lyrics.class);
+                tituloCancion = cancionesBuscadas.get(position).titulo;
+                artistaCancion = cancionesBuscadas.get(position).artistaNombre;
+                urlPortadaCancion = cancionesBuscadas.get(position).urlFoto;
+                startActivity(i);
+            }
+        });
     }
 
     public void onClickBuscarCancion (View v)
     {
         cancionesBuscadas.clear(); //Lo borramos si o si, desde luego.
         adaptador.notifyDataSetChanged();
-        if (true)
+        if (true) //textIntroducir.getText().toString().compareTo("") == 1
         {
             DownloadTask task = new DownloadTask();
             //System.out.println(task.CancionesBuscadasDT.size());
@@ -84,13 +106,5 @@ public class Buscar extends AppCompatActivity {
     {
         cancionesBuscadas = cancionesBuscadasDT;
         adaptador.notifyDataSetChanged();
-        System.out.println("despues de oclick");
-        for (int j = 0; j < cancionesBuscadas.size() ; j++)
-        {
-            System.out.println("AAAAAAAaa" + cancionesBuscadas.get(j).titulo);
-            Log.i("despues", cancionesBuscadas.get(j).titulo );
-        }
-
     }
-
 }

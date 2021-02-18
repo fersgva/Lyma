@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class Adaptador extends BaseAdapter {
@@ -45,7 +47,7 @@ public class Adaptador extends BaseAdapter {
         TextView TextoCancion = convertView.findViewById(R.id.textCancion);
         ImageView fotoCancion = convertView.findViewById(R.id.fotoCancion);
         añadir = convertView.findViewById(R.id.botonAnadir);
-
+        Picasso.get().load(DownloadTask.cancionesBuscadasDT.get(position).urlFoto).into(fotoCancion);
         TextoCancion.setText(Cancion.getTitulo());
         //fotoCancion.setImageResource(Cancion.getUrlFoto());
 

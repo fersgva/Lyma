@@ -25,8 +25,11 @@ public class DownloadTaskLyrics  extends AsyncTask<String, Void, Void>
             divS = divS.replaceAll("<div>", "");
             divS = divS.replaceAll("</div>", "");
             divS = divS.replaceAll("<br>", "\n");
+            divS = divS.replaceAll("<i>", "");
+            divS = divS.replaceAll("</i>", "");
             divS = divS.replaceAll("<!-- Usage of azlyrics.com content by any third-party lyrics provider is prohibited by our licensing agreement. Sorry about that. -->", "");
             System.out.println(divS);
+            Lyrics.ponerLetras.setText(divS);
 
             //METER AQUI LO DE QUE LO META EN EL LISTVIEW DE LYRICS
 
@@ -34,8 +37,14 @@ public class DownloadTaskLyrics  extends AsyncTask<String, Void, Void>
         }
         catch (IOException | InterruptedException e)
         {
+            Lyrics.ponerLetras.setText("No se ha podido encontrar esta letra en nuestra Base de Datos");
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
     }
 }

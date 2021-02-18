@@ -33,30 +33,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lyma_logo_big" />
 
-    <ListView
-        android:id="@+id/lV_lyrics"
-        android:layout_width="329dp"
-        android:layout_height="483dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:background="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
     <TextView
         android:id="@+id/textView_fondoRepro"
         android:layout_width="329dp"
         android:layout_height="66dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="31dp"
         android:background="#65D172"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lV_lyrics" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLyrics" />
 
     <ImageView
         android:id="@+id/imageView_Play"
@@ -142,5 +127,21 @@
             android:onClick="onClickIrABiblioteca"
             app:srcCompat="@drawable/icon_biblioteca" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextLyrics"
+        android:layout_width="330dp"
+        android:layout_height="468dp"
+        android:layout_marginTop="28dp"
+        android:background="#FFFFFF"
+        android:editable="false"
+        android:ems="10"
+        android:fontFamily="@font/gotham_bold"
+        android:gravity="start|center_vertical"
+        android:hapticFeedbackEnabled="false"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
