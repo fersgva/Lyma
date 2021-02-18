@@ -54,21 +54,6 @@
         app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
         app:srcCompat="@android:drawable/ic_media_play" />
 
-    <ImageView
-        android:id="@+id/imageView_Fav"
-        android:layout_width="34dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:onClick="playCancion"
-        app:layout_constraintEnd_toEndOf="@+id/textView_fondoRepro"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/seekBar_Cancion"
-        app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro"
-        app:srcCompat="@drawable/icon_anadircancionblanco" />
-
     <SeekBar
         android:id="@+id/seekBar_Cancion"
         android:layout_width="182dp"

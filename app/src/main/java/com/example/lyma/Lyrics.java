@@ -40,10 +40,10 @@ public class Lyrics extends AppCompatActivity{
 
         foto = findViewById(R.id.imageViewPortada);
         play = findViewById(R.id.imageView_Play);
-        mas = findViewById(R.id.imageView_Fav);
         cancion = findViewById(R.id.seekBar_Cancion);
         ponerLetras = findViewById(R.id.editTextLyrics);
-
+        Class clasee = getIntent().getClass();
+        System.out.println(clasee.getName());
         nomArtista = Buscar.artistaCancion;
         String nomArtistaURL = nomArtista;
         nomCancion = Buscar.tituloCancion;
@@ -65,6 +65,8 @@ public class Lyrics extends AppCompatActivity{
         String nomCancionURL = nomCancion;
         nomCancionURL = nomCancionURL.toLowerCase();
         nomCancionURL = nomCancionURL.replaceAll("[()!¡¿? '’/<>﹤﹥+*.]", "");
+        nomCancionURL = Normalizer.normalize(nomCancionURL, Normalizer.Form.NFD);
+        nomCancionURL = nomCancionURL.replaceAll("[^\\p{ASCII}]", "");
 
         System.out.println(nomCancionURL);
         System.out.println(nomArtistaURL);
@@ -77,8 +79,12 @@ public class Lyrics extends AppCompatActivity{
         taskD.execute("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + busquedaSong);
 
 
-        play.setVisibility(View.INVISIBLE);
-        prepararCancion();
+        //play.setVisibility(View.INVISIBLE);
+        for (int i = 0; i < 1 ; i++)
+        {
+            prepararCancion();
+            i++;
+        }
 
 
     }
@@ -89,7 +95,7 @@ public class Lyrics extends AppCompatActivity{
         player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                play.setVisibility(View.VISIBLE);
+                //play.setVisibility(View.VISIBLE);
             }
         });
         try {
@@ -102,10 +108,14 @@ public class Lyrics extends AppCompatActivity{
     }
     public void playCancion (View v)
     {
-        if(!player.isPlaying())
+        if(!player.isPlaying()) {
             player.start();
-        else
+            play.setImageResource(android.R.drawable.ic_media_pause);
+        }
+        else {
             player.pause();
+            play.setImageResource(android.R.drawable.ic_media_play);
+        }
     }
 
     public void onPrepared(MediaPlayer mediaPlayer)
@@ -130,8 +140,5 @@ public class Lyrics extends AppCompatActivity{
         Intent i = new Intent(this, Perfil.class);
         startActivity(i);
     }
-    public static void onTaskFinished()
-    {
 
-    }
 }

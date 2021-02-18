@@ -61,6 +61,16 @@ public class Buscar extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        buscar.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Biblioteca.Canciones.add(new Cancion(cancionesBuscadas.get(position).titulo,cancionesBuscadas.get(position).artistaNombre,cancionesBuscadas.get(position).urlFoto));
+                Toast.makeText(Buscar.this, "Se ha añadido la canción a la biblioteca correctamente", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     public void onClickBuscarCancion (View v)
@@ -85,6 +95,8 @@ public class Buscar extends AppCompatActivity {
             t.show();
         }
     }
+
+
     public void onClickIrALyrics (View v)
     {
         Intent i = new Intent(this, Lyrics.class);
@@ -107,4 +119,5 @@ public class Buscar extends AppCompatActivity {
         cancionesBuscadas = cancionesBuscadasDT;
         adaptador.notifyDataSetChanged();
     }
+
 }
