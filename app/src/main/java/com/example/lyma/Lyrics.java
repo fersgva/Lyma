@@ -25,6 +25,8 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Lyrics extends AppCompatActivity{
     ImageView foto , play , mas;
@@ -86,6 +88,24 @@ public class Lyrics extends AppCompatActivity{
             i++;
         }
 
+        cancion.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser)
+                    player.seekTo(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
 
     }
 
@@ -99,15 +119,21 @@ public class Lyrics extends AppCompatActivity{
             }
         });
         try {
+
             player.setDataSource(urlDeezer);
             player.prepareAsync();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+
     }
     public void playCancion (View v)
     {
+
         if(!player.isPlaying()) {
             player.start();
             play.setImageResource(android.R.drawable.ic_media_pause);
@@ -116,6 +142,17 @@ public class Lyrics extends AppCompatActivity{
             player.pause();
             play.setImageResource(android.R.drawable.ic_media_play);
         }
+
+        cancion.setMax(player.getDuration());
+        cancion.setProgress(player.getCurrentPosition());
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                cancion.setProgress(player.getCurrentPosition());
+            }
+        },0,1000);
     }
 
     public void onPrepared(MediaPlayer mediaPlayer)

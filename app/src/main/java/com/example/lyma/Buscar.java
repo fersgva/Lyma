@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -20,8 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +41,10 @@ public class Buscar extends AppCompatActivity {
     String busqueda = " ";
     public static String tituloCancion, artistaCancion, urlPortadaCancion;
     static ImageView imagenPortada;
+
+    Gson gson;
+    static SharedPreferences PreferenciasBiblioteca;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +54,25 @@ public class Buscar extends AppCompatActivity {
         textIntroducir = findViewById(R.id.editTextBuscarB);
         imagenPortada = findViewById(R.id.fotoCancion);
 
+        Intent i = getIntent();
+        String UserName = i.getStringExtra("userName");
+
+
+        gson = new Gson();
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas" + UserName,MODE_PRIVATE);
+
+        String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
+
+        //Debido a que el tipo no es sólo un único objeto, si no una lista, debemos crear un tipo basado en esa lista.
+        Type type = new TypeToken<ArrayList<Cancion>>(){}.getType();
+        Biblioteca.Canciones = gson.fromJson(datosCargados, type);
+
+        if(Biblioteca.Canciones == null)
+            Biblioteca.Canciones = new ArrayList<>();
+
+
         adaptador = new Adaptador(DownloadTask.cancionesBuscadasDT,this);
         buscar.setAdapter(adaptador);
-
-        Intent i = getIntent();
-        i.getStringExtra("usuario");
 
         buscar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +90,12 @@ public class Buscar extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Biblioteca.Canciones.add(new Cancion(cancionesBuscadas.get(position).titulo,cancionesBuscadas.get(position).artistaNombre,cancionesBuscadas.get(position).urlFoto));
+
+
+                //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
+                String CancioneEnString = gson.toJson(Biblioteca.Canciones);
+                PreferenciasBiblioteca.edit().putString("Canciones", CancioneEnString).apply();
+
                 Toast.makeText(Buscar.this, "Se ha añadido la canción a la biblioteca correctamente", Toast.LENGTH_SHORT).show();
                 return true;
             }

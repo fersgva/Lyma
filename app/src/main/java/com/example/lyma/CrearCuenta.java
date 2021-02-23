@@ -35,6 +35,7 @@ public class CrearCuenta extends AppCompatActivity {
         correo =findViewById(R.id.editTextCorreoEEP);
         contraseña = findViewById(R.id.editTextContrasenaEP);
         crearCuenta = findViewById(R.id.buttonCrearCuenta5);
+
         gson = new Gson();
         preferenciasApp = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
 
@@ -79,9 +80,11 @@ public class CrearCuenta extends AppCompatActivity {
                 usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),R.drawable.lyma_logo));
                 //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
                 String usuariosEnString = gson.toJson(usuarios);
-                preferenciasApp.edit().putString("usuarios", usuariosEnString);
+                preferenciasApp.edit().putString("usuarios", usuariosEnString).apply();
 
+                String usuario = correo.getText().toString();
                 Intent i = new Intent(this,Buscar.class);
+                i.putExtra("userName",usuario);
                 startActivity(i);
             }
         }
