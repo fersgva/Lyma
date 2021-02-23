@@ -41,8 +41,9 @@ public class Buscar extends AppCompatActivity {
     String busqueda = " ";
     public static String tituloCancion, artistaCancion, urlPortadaCancion;
     static ImageView imagenPortada;
+    String UserName;
 
-    Gson gson;
+    static Gson gson;
     static SharedPreferences PreferenciasBiblioteca;
 
     @Override
@@ -55,11 +56,11 @@ public class Buscar extends AppCompatActivity {
         imagenPortada = findViewById(R.id.fotoCancion);
 
         Intent i = getIntent();
-        String UserName = i.getStringExtra("userName");
+        UserName = i.getStringExtra("userName");
 
 
         gson = new Gson();
-        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas" + UserName,MODE_PRIVATE);
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + UserName,MODE_PRIVATE);
 
         String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
 
@@ -134,6 +135,7 @@ public class Buscar extends AppCompatActivity {
     public void onClickIrABiblioteca (View v)
     {
         Intent i = new Intent(this, Biblioteca.class);
+        i.putExtra("userName" , UserName);
         startActivity(i);
     }
 

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -27,13 +28,30 @@ public class Biblioteca extends AppCompatActivity {
     static ListView cancionesGuardadas;
     static AdaptadorBiblioteca adaptador;
     String tituloCancion,artistaCancion,urlPortadaCancion;
-
+    Gson gson;
+    SharedPreferences PreferenciasBiblioteca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biblioteca);
         cancionesGuardadas = findViewById(R.id.lV_biblioteca);
+
+        Intent i = getIntent();
+        String UserName = i.getStringExtra("userName");
+
+        gson = new Gson();
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + UserName,MODE_PRIVATE);
+
+        String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
+
+        //Debido a que el tipo no es sólo un único objeto, si no una lista, debemos crear un tipo basado en esa lista.
+        Type type = new TypeToken<ArrayList<Cancion>>(){}.getType();
+        Canciones = gson.fromJson(datosCargados, type);
+
+        if(Canciones == null)
+            Canciones = new ArrayList<>();
+
 
         adaptador = new AdaptadorBiblioteca(Canciones,this);
         cancionesGuardadas.setAdapter(adaptador);
@@ -50,6 +68,8 @@ public class Biblioteca extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
 
                                 Biblioteca.Canciones.remove(position);
+                                String datosEnCadena = gson.toJson(Canciones);
+                                PreferenciasBiblioteca.edit().putString("Canciones", datosEnCadena).apply();
                                 adaptador.notifyDataSetChanged();
 
                             }
