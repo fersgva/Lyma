@@ -33,20 +33,28 @@ public class MainActivity extends AppCompatActivity {
         contraseña =findViewById(R.id.editTextContrasenaEP);
         iniciar = findViewById(R.id.buttonIniciarSesion);
         crear = findViewById(R.id.buttonCrearCuenta);
-
-        preferencesusuaio = getSharedPreferences("com.example.lymas2",MODE_PRIVATE);
-        String datosCargados = preferencesusuaio.getString("usuarios", null);
-
-        //--------------------PROCESO DE CARGADO.--------------------------//
-        Gson gson = new Gson();
-        //Debido a que el tipo no es sólo un único objeto, si no una lista, debemos crear un tipo basado en esa lista.
-        Type type = new TypeToken<ArrayList<usuarios>>(){}.getType();
-        usuarios = gson.fromJson(datosCargados, type);
+        Log.i("PASO", "PASO");
 
     }
 
     public void onClickIniciarSesion (View v)
     {
+        //--------------------PROCESO DE CARGADO.--------------------------//
+        //ESTABÁIS CARGANDO LOS SHAREDPREFERENCES EN EL ONCREATE DE LA ACTIVITY.
+        //Es decir, SÓLO se cargan los datos la PRIMERA VEZ que se abre esta activity.
+        //Por lo tanto, si creo un usuario y luego doy atrás atrás atrás para intentar
+        //hacer Log In con el nuevo usuario, no se volverán a cargar los preferences a no ser
+        //que les carguemos AQUÍ, al hacer click en el botón.
+        //Entiendo que con la biblioteca es lo mismo, pero no consigo acceder a la biblioteca
+        //Intentadlo y mañana lo vemos.
+        preferencesusuaio = getSharedPreferences("com.example.lymas2",MODE_PRIVATE);
+        String datosCargados = preferencesusuaio.getString("usuarios", null);
+
+        Gson gson = new Gson();
+        //Debido a que el tipo no es sólo un único objeto, si no una lista, debemos crear un tipo basado en esa lista.
+        Type type = new TypeToken<ArrayList<usuarios>>(){}.getType();
+        usuarios = gson.fromJson(datosCargados, type);
+
         if(usuarios == null) {
             usuarios = new ArrayList<>();
 
