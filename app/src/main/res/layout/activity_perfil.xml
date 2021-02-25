@@ -44,45 +44,11 @@
             app:srcCompat="@drawable/icon_biblioteca" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextREPContrasenaEP"
-        android:layout_width="228dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="12dp"
-        android:background="#FFFFFF"
-        android:ems="10"
-        android:fontFamily="@font/gotham_bold"
-        android:gravity="center|center_vertical"
-        android:hapticFeedbackEnabled="false"
-        android:inputType="textPassword"
-        android:shadowColor="#00000000"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Contrasena3" />
-
-    <TextView
-        android:id="@+id/textView_Contrasena3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/gotham_bold"
-        android:text="Repetir contraseña:"
-        android:textColor="#65D172"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContrasenaEP" />
-
     <TextView
         android:id="@+id/textView_Nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="68dp"
         android:fontFamily="@font/gotham_bold"
         android:text="Nombre:"
         android:textColor="#65D172"
@@ -111,11 +77,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Nombre" />
 
+    <EditText
+        android:id="@+id/editTextNombreEPURL"
+        android:layout_width="159dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:fontFamily="@font/gotham_bold"
+        android:gravity="center|center_vertical"
+        android:hapticFeedbackEnabled="false"
+        android:inputType="textPersonName"
+        android:shadowColor="#00000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonURLEP2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
     <TextView
         android:id="@+id/textView_CorreoE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/gotham_bold"
         android:text="Correo electrónico:"
         android:textColor="#65D172"
@@ -149,7 +137,7 @@
         android:id="@+id/textView_Contrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/gotham_bold"
         android:text="Contraseña:"
         android:textColor="#65D172"
@@ -183,11 +171,12 @@
         android:id="@+id/buttonGuardarCambiosEP"
         android:layout_width="190dp"
         android:layout_height="39dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:background="#65D172"
         android:capitalize="characters"
         android:editable="false"
         android:fontFamily="@font/gotham_bold"
+        android:onClick="onClickGuardarCambios"
         android:text="Guardar Cambios"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -195,7 +184,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextREPContrasenaEP" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextContrasenaEP" />
+
+    <Button
+        android:id="@+id/buttonURLEP2"
+        android:layout_width="62dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:background="#65D172"
+        android:capitalize="characters"
+        android:editable="false"
+        android:fontFamily="@font/gotham_bold"
+        android:onClick="onClicksubirFoto"
+        android:text="URL"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextNombreEPURL"
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <Button
         android:id="@+id/buttonEliminarCuentaEP"
@@ -230,7 +241,7 @@
         android:id="@+id/imageView10"
         android:layout_width="101dp"
         android:layout_height="79dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6"

@@ -55,7 +55,7 @@ public class CrearCuenta extends AppCompatActivity {
         {
             usuarios = new ArrayList<>();
             System.out.println("Sin usuarios");
-            usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),R.drawable.lyma_logo));
+            usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),""));
 
             //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
             String usuariosEnString = gson.toJson(usuarios);
@@ -77,7 +77,7 @@ public class CrearCuenta extends AppCompatActivity {
 
             }
             if(existe == false){
-                usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),R.drawable.lyma_logo));
+                usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),""));
                 //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
                 String usuariosEnString = gson.toJson(usuarios);
                 preferenciasApp.edit().putString("usuarios", usuariosEnString).apply();

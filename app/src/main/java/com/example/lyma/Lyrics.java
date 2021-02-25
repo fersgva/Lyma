@@ -29,11 +29,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Lyrics extends AppCompatActivity{
-    ImageView foto , play , mas;
+    ImageView foto;
+    static ImageView play;
     SeekBar cancion;
-    MediaPlayer player;
+    static MediaPlayer player;
     public static String urlDeezer;
-    String nomArtista, nomCancion, urlLyrics, busquedaSong, urlPortada;
+    String nomArtista, nomCancion, urlLyrics, busquedaSong, urlPortada, userName;
     static EditText ponerLetras;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,12 @@ public class Lyrics extends AppCompatActivity{
         urlPortada = Buscar.urlPortadaCancion;
         Picasso.get().load(urlPortada).into(foto);
 
+        Intent i = getIntent();
+        userName = i.getStringExtra("userName");
+
+
+
+        player = new MediaPlayer();
         if(nomArtistaURL.contains(",")){
             nomArtistaURL = nomArtistaURL.substring(0, nomArtistaURL.indexOf(","));
         }
@@ -59,6 +66,7 @@ public class Lyrics extends AppCompatActivity{
         {
            nomArtistaURL = nomArtistaURL.substring(0, nomArtistaURL.indexOf("&"));
         }
+
         nomArtistaURL = nomArtistaURL.replaceAll(" ", "");
         nomArtistaURL = nomArtistaURL.toLowerCase();
         nomArtistaURL = Normalizer.normalize(nomArtistaURL, Normalizer.Form.NFD);
@@ -66,7 +74,7 @@ public class Lyrics extends AppCompatActivity{
 
         String nomCancionURL = nomCancion;
         nomCancionURL = nomCancionURL.toLowerCase();
-        nomCancionURL = nomCancionURL.replaceAll("[()!¡¿? '’/<>﹤﹥+*.]", "");
+        nomCancionURL = nomCancionURL.replaceAll("[()!¡¿? '’/<>﹤﹥+*.#]", "");
         nomCancionURL = Normalizer.normalize(nomCancionURL, Normalizer.Form.NFD);
         nomCancionURL = nomCancionURL.replaceAll("[^\\p{ASCII}]", "");
 
@@ -78,15 +86,12 @@ public class Lyrics extends AppCompatActivity{
 
         DownloadTaskDeezer taskD = new DownloadTaskDeezer();
         busquedaSong = Buscar.tituloCancion + "%20" + Buscar.artistaCancion;
+
+        //Ocultar el seekbar.
+        play.setVisibility(View.INVISIBLE);
         taskD.execute("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + busquedaSong);
 
 
-        //play.setVisibility(View.INVISIBLE);
-        for (int i = 0; i < 1 ; i++)
-        {
-            prepararCancion();
-            i++;
-        }
 
         cancion.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -109,17 +114,16 @@ public class Lyrics extends AppCompatActivity{
 
     }
 
-    void prepararCancion()
+    public static void prepararCancion()
     {
         player = new MediaPlayer();
         player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                //play.setVisibility(View.VISIBLE);
+                play.setVisibility(View.VISIBLE);
             }
         });
         try {
-
             player.setDataSource(urlDeezer);
             player.prepareAsync();
 
@@ -155,26 +159,24 @@ public class Lyrics extends AppCompatActivity{
         },0,1000);
     }
 
-    public void onPrepared(MediaPlayer mediaPlayer)
-    {
-        System.out.println("Preparado!");
-        mediaPlayer.start();
-    }
-
     public void onClickIrABuscar (View v)
     {
+        player.pause();
         Intent i = new Intent(this, Buscar.class);
         startActivity(i);
     }
     public void onClickIrABiblioteca (View v)
     {
+        player.pause();
         Intent i = new Intent(this, Biblioteca.class);
         startActivity(i);
     }
 
     public void onClickIrAPerfil (View v)
     {
+        player.pause();
         Intent i = new Intent(this, Perfil.class);
+        i.putExtra("userName" , userName);
         startActivity(i);
     }
 

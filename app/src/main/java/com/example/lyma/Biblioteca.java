@@ -30,7 +30,7 @@ public class Biblioteca extends AppCompatActivity {
     String tituloCancion,artistaCancion,urlPortadaCancion;
     Gson gson;
     SharedPreferences PreferenciasBiblioteca;
-
+    String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +38,10 @@ public class Biblioteca extends AppCompatActivity {
         cancionesGuardadas = findViewById(R.id.lV_biblioteca);
 
         Intent i = getIntent();
-        String UserName = i.getStringExtra("userName");
-
+        userName = i.getStringExtra("userName");
+        System.out.println("Se va a cargar biblioteca de: " + userName);
         gson = new Gson();
-        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + UserName,MODE_PRIVATE);
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + userName,MODE_PRIVATE);
 
         String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
 
@@ -49,11 +49,14 @@ public class Biblioteca extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Cancion>>(){}.getType();
         Canciones = gson.fromJson(datosCargados, type);
 
-        if(Canciones == null)
+        if (Canciones == null)
+        {
+            System.out.println("NO HAY DATOS PARA ESTE USUARIO");
             Canciones = new ArrayList<>();
+        }
 
+        adaptador = new AdaptadorBiblioteca(Canciones, this);
 
-        adaptador = new AdaptadorBiblioteca(Canciones,this);
         cancionesGuardadas.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
         cancionesGuardadas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -95,18 +98,22 @@ public class Biblioteca extends AppCompatActivity {
 
     public void onClickIrALyrics (View v)
     {
-        Intent i = new Intent(this, Lyrics.class);
-        startActivity(i);
+        if (tituloCancion != null) {
+            Intent i = new Intent(this, Lyrics.class);
+            startActivity(i);
+        }
     }
     public void onClickIrABuscar (View v)
     {
         Intent i = new Intent(this, Buscar.class);
+        i.putExtra("userName", userName);
         startActivity(i);
     }
 
     public void onClickIrAPerfil (View v)
     {
         Intent i = new Intent(this, Perfil.class);
+        i.putExtra("userName" , userName);
         startActivity(i);
     }
 }

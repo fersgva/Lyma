@@ -57,7 +57,7 @@ public class Buscar extends AppCompatActivity {
 
         Intent i = getIntent();
         UserName = i.getStringExtra("userName");
-
+        System.out.println("Se está utilizando biblioteca de: " + UserName);
 
         gson = new Gson();
         PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + UserName,MODE_PRIVATE);
@@ -129,8 +129,10 @@ public class Buscar extends AppCompatActivity {
 
     public void onClickIrALyrics (View v)
     {
-        Intent i = new Intent(this, Lyrics.class);
-        startActivity(i);
+        if (tituloCancion != null) {
+            Intent i = new Intent(this, Lyrics.class);
+            startActivity(i);
+        }
     }
     public void onClickIrABiblioteca (View v)
     {
@@ -142,6 +144,7 @@ public class Buscar extends AppCompatActivity {
     public void onClickIrAPerfil (View v)
     {
         Intent i = new Intent(this, Perfil.class);
+        i.putExtra("userName" , UserName);
         startActivity(i);
     }
 

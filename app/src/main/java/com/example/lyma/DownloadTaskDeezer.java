@@ -44,4 +44,11 @@ public class DownloadTaskDeezer extends AsyncTask<String, Void, Void>
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+        Lyrics.prepararCancion();
+    }
 }

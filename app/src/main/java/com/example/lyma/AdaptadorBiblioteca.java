@@ -18,7 +18,7 @@ public class AdaptadorBiblioteca extends BaseAdapter {
     Context context;
 
     public AdaptadorBiblioteca(ArrayList<Cancion> canciones, Context context) {
-        Canciones = canciones;
+        this.Canciones = canciones;
         this.context = context;
     }
 

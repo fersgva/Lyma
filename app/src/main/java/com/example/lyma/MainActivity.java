@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         if(usuarios == null) {
             usuarios = new ArrayList<>();
 
+            //usuarios.get(i).
+
         }
 
             for (int i = 0; i < usuarios.size(); i++) {
