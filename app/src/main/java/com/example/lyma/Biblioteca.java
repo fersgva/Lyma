@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -100,10 +101,14 @@ public class Biblioteca extends AppCompatActivity {
 
     public void onClickIrALyrics (View v)
     {
-        if (tituloCancion != null) {
+        if (Buscar.tituloCancion != null) {
             Intent i = new Intent(this, Lyrics.class);
             i.putExtra("id" , id);
             startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(this, "Elige una canción antes de ir a Lyrics.", Toast.LENGTH_SHORT).show();
         }
     }
     public void onClickIrABuscar (View v)

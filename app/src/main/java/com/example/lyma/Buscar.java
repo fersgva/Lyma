@@ -135,6 +135,10 @@ public class Buscar extends AppCompatActivity {
             i.putExtra("id" , id);
             startActivity(i);
         }
+        else
+        {
+            Toast.makeText(this, "Elige una canción antes de ir a Lyrics.", Toast.LENGTH_SHORT).show();
+        }
     }
     public void onClickIrABiblioteca (View v)
     {
