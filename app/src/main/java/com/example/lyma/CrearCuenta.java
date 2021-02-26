@@ -26,6 +26,7 @@ public class CrearCuenta extends AppCompatActivity {
     boolean existe = false;
     Gson gson;
     static SharedPreferences preferenciasApp;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class CrearCuenta extends AppCompatActivity {
         crearCuenta = findViewById(R.id.buttonCrearCuenta5);
 
         gson = new Gson();
-        preferenciasApp = getSharedPreferences("com.example.lymas2",MODE_PRIVATE);
+        preferenciasApp = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
 
         //CARGADO DE DATOS.
         String datosCargados = preferenciasApp.getString("usuarios", null);
@@ -55,7 +56,8 @@ public class CrearCuenta extends AppCompatActivity {
         {
             usuarios = new ArrayList<>();
             System.out.println("Sin usuarios");
-            usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),""));
+            id = usuarios.size();
+            usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),"https://i.imgur.com/nyJ8Atp.png", id));
 
             //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
             String usuariosEnString = gson.toJson(usuarios);
@@ -63,7 +65,7 @@ public class CrearCuenta extends AppCompatActivity {
 
             String usuario = correo.getText().toString();
             Intent i = new Intent(this,Buscar.class);
-            i.putExtra("userName", usuario);
+            i.putExtra("id", id);
             startActivity(i);
         }else{
             System.out.println(usuarios.size());
@@ -76,15 +78,15 @@ public class CrearCuenta extends AppCompatActivity {
                 }
 
             }
-            if(existe == false){
-                usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),""));
+            if(!existe){
+                usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),"https://i.imgur.com/nyJ8Atp.png",id));
                 //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
                 String usuariosEnString = gson.toJson(usuarios);
                 preferenciasApp.edit().putString("usuarios", usuariosEnString).apply();
 
                 String usuario = correo.getText().toString();
                 Intent i = new Intent(this,Buscar.class);
-                i.putExtra("userName",usuario);
+                i.putExtra("id",id);
                 startActivity(i);
             }
         }

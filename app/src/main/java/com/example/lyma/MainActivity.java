@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         //que les carguemos AQUÍ, al hacer click en el botón.
         //Entiendo que con la biblioteca es lo mismo, pero no consigo acceder a la biblioteca
         //Intentadlo y mañana lo vemos.
-        preferencesusuaio = getSharedPreferences("com.example.lymas2",MODE_PRIVATE);
+        preferencesusuaio = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
         String datosCargados = preferencesusuaio.getString("usuarios", null);
 
         Gson gson = new Gson();
@@ -67,9 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 if(usuarios.get(i).getNombre().compareTo(correo.getText().toString()) == 0 && usuarios.get(i).getContraseña().compareTo(contraseña.getText().toString()) == 0){
 
                     iniciado = true;
-                    String usuario = correo.getText().toString();
                     Intent intento = new Intent(this,Buscar.class);
-                    intento.putExtra("userName" , usuario);
+                    intento.putExtra("id" , usuarios.get(i).getId());
                     startActivity(intento);
                 }
             }

@@ -34,8 +34,10 @@ public class Lyrics extends AppCompatActivity{
     SeekBar cancion;
     static MediaPlayer player;
     public static String urlDeezer;
-    String nomArtista, nomCancion, urlLyrics, busquedaSong, urlPortada, userName;
+    String nomArtista, nomCancion, urlLyrics, busquedaSong, urlPortada;
+    int id;
     static EditText ponerLetras;
+    DownloadTaskDeezer taskD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,9 +56,9 @@ public class Lyrics extends AppCompatActivity{
         Picasso.get().load(urlPortada).into(foto);
 
         Intent i = getIntent();
-        userName = i.getStringExtra("userName");
+        id = i.getIntExtra("id",0);
 
-
+        System.out.println("Se esta usando la biblioteca de " + id);
 
         player = new MediaPlayer();
         if(nomArtistaURL.contains(",")){
@@ -84,7 +86,7 @@ public class Lyrics extends AppCompatActivity{
         DownloadTaskLyrics task = new DownloadTaskLyrics();
         task.execute(urlLyrics);
 
-        DownloadTaskDeezer taskD = new DownloadTaskDeezer();
+        taskD = new DownloadTaskDeezer();
         busquedaSong = Buscar.tituloCancion + "%20" + Buscar.artistaCancion;
 
         //Ocultar el seekbar.
@@ -147,6 +149,14 @@ public class Lyrics extends AppCompatActivity{
             play.setImageResource(android.R.drawable.ic_media_play);
         }
 
+        if(player.getDuration() < 15)
+        {
+            taskD.execute("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + busquedaSong);
+            DownloadTaskDeezer.posPreview += 1;
+        }
+        else
+            DownloadTaskDeezer.posPreview = 0;
+
         cancion.setMax(player.getDuration());
         cancion.setProgress(player.getCurrentPosition());
 
@@ -163,12 +173,14 @@ public class Lyrics extends AppCompatActivity{
     {
         player.pause();
         Intent i = new Intent(this, Buscar.class);
+        i.putExtra("id" , id);
         startActivity(i);
     }
     public void onClickIrABiblioteca (View v)
     {
         player.pause();
         Intent i = new Intent(this, Biblioteca.class);
+        i.putExtra("id" , id);
         startActivity(i);
     }
 
@@ -176,7 +188,7 @@ public class Lyrics extends AppCompatActivity{
     {
         player.pause();
         Intent i = new Intent(this, Perfil.class);
-        i.putExtra("userName" , userName);
+        i.putExtra("id" , id);
         startActivity(i);
     }
 

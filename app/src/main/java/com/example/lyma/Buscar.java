@@ -41,7 +41,7 @@ public class Buscar extends AppCompatActivity {
     String busqueda = " ";
     public static String tituloCancion, artistaCancion, urlPortadaCancion;
     static ImageView imagenPortada;
-    String UserName;
+    int id;
 
     static Gson gson;
     static SharedPreferences PreferenciasBiblioteca;
@@ -56,11 +56,11 @@ public class Buscar extends AppCompatActivity {
         imagenPortada = findViewById(R.id.fotoCancion);
 
         Intent i = getIntent();
-        UserName = i.getStringExtra("userName");
-        System.out.println("Se está utilizando biblioteca de: " + UserName);
+        id = i.getIntExtra("id",0);
+        System.out.println("Se está utilizando biblioteca de: " + id);
 
         gson = new Gson();
-        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + UserName,MODE_PRIVATE);
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + id,MODE_PRIVATE);
 
         String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
 
@@ -82,6 +82,7 @@ public class Buscar extends AppCompatActivity {
                 tituloCancion = cancionesBuscadas.get(position).titulo;
                 artistaCancion = cancionesBuscadas.get(position).artistaNombre;
                 urlPortadaCancion = cancionesBuscadas.get(position).urlFoto;
+                i.putExtra("id",id);
                 startActivity(i);
             }
         });
@@ -131,20 +132,21 @@ public class Buscar extends AppCompatActivity {
     {
         if (tituloCancion != null) {
             Intent i = new Intent(this, Lyrics.class);
+            i.putExtra("id" , id);
             startActivity(i);
         }
     }
     public void onClickIrABiblioteca (View v)
     {
         Intent i = new Intent(this, Biblioteca.class);
-        i.putExtra("userName" , UserName);
+        i.putExtra("id" , id);
         startActivity(i);
     }
 
     public void onClickIrAPerfil (View v)
     {
         Intent i = new Intent(this, Perfil.class);
-        i.putExtra("userName" , UserName);
+        i.putExtra("id" , id);
         startActivity(i);
     }
 

@@ -5,12 +5,14 @@ import android.widget.TextView;
 public class usuarios {
 
     String nombre , contraseña , correo, imagen;
+    int id;
 
-    public usuarios(String nombre, String contraseña, String correo, String imagen) {
+    public usuarios(String nombre, String contraseña, String correo, String imagen, int id) {
         this.nombre = nombre;
         this.contraseña = contraseña;
         this.correo = correo;
         this.imagen = imagen;
+        this.id = id;
     }
 
     public String getNombre() {
@@ -43,5 +45,13 @@ public class usuarios {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

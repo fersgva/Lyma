@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class DownloadTaskDeezer extends AsyncTask<String, Void, Void>
 {
+    static  int posPreview;
     @Override
     protected Void doInBackground(String... urls) {
         OkHttpClient client = new OkHttpClient();
@@ -32,11 +33,15 @@ public class DownloadTaskDeezer extends AsyncTask<String, Void, Void>
             String jsonData = response.body().string();
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-            for (int i = 0; i < jsonArray.length() ; i++)
-            {
-                System.out.println(jsonArray.getJSONObject(i).getString("preview"));
-                Lyrics.urlDeezer = jsonArray.getJSONObject(i).getString("preview");
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                System.out.println(jsonArray.getJSONObject(posPreview).getString("preview"));
+
             }
+
+                Lyrics.urlDeezer = jsonArray.getJSONObject(posPreview).getString("preview");
+
         }
         catch (IOException | JSONException e)
         {

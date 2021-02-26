@@ -30,7 +30,7 @@ public class Biblioteca extends AppCompatActivity {
     String tituloCancion,artistaCancion,urlPortadaCancion;
     Gson gson;
     SharedPreferences PreferenciasBiblioteca;
-    String userName;
+    int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +38,10 @@ public class Biblioteca extends AppCompatActivity {
         cancionesGuardadas = findViewById(R.id.lV_biblioteca);
 
         Intent i = getIntent();
-        userName = i.getStringExtra("userName");
-        System.out.println("Se va a cargar biblioteca de: " + userName);
+        id = i.getIntExtra("id",0);
+        System.out.println("Se va a cargar biblioteca de: " + id);
         gson = new Gson();
-        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + userName,MODE_PRIVATE);
+        PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + id,MODE_PRIVATE);
 
         String datosCargados = PreferenciasBiblioteca.getString("Canciones", null);
 
@@ -100,20 +100,21 @@ public class Biblioteca extends AppCompatActivity {
     {
         if (tituloCancion != null) {
             Intent i = new Intent(this, Lyrics.class);
+            i.putExtra("id" , id);
             startActivity(i);
         }
     }
     public void onClickIrABuscar (View v)
     {
         Intent i = new Intent(this, Buscar.class);
-        i.putExtra("userName", userName);
+        i.putExtra("id", id);
         startActivity(i);
     }
 
     public void onClickIrAPerfil (View v)
     {
         Intent i = new Intent(this, Perfil.class);
-        i.putExtra("userName" , userName);
+        i.putExtra("id" , id);
         startActivity(i);
     }
 }

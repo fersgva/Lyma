@@ -23,11 +23,12 @@ public class Perfil extends AppCompatActivity {
     ImageView foto;
     static String urlFoto;
     String userName;
-    int posArray;
+    int posArray,id;
     TextView nombre , correo , contraseña , tvURL;
     Button eliminar , guardar, urlButton;
     Gson gson;
     static SharedPreferences preferenciasApp;
+    static SharedPreferences preferenciasBilbioteca;
     ArrayList<usuarios> usuarios;
 
     @Override
@@ -44,10 +45,11 @@ public class Perfil extends AppCompatActivity {
         urlButton = findViewById(R.id.buttonURLEP2);
 
         Intent in = getIntent();
-        userName = in.getStringExtra("userName");
+        id = in.getIntExtra("id",0);
 
+        //----------------------------------------------------USUARIOS----------------------------------------------------------------------
         gson = new Gson();
-        preferenciasApp = getSharedPreferences("com.example.lymas2",MODE_PRIVATE);
+        preferenciasApp = getSharedPreferences("com.example.lymas",MODE_PRIVATE);
 
         //CARGADO DE DATOS.
         String datosCargados = preferenciasApp.getString("usuarios", null);
@@ -56,9 +58,11 @@ public class Perfil extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<usuarios>>(){}.getType();
         usuarios = gson.fromJson(datosCargados, type);
 
+        //---------------------------------------------------------------------------------------------------------------------------------------
+
         for (int i = 0; i < usuarios.size(); i++) {
 
-            if(usuarios.get(i).getNombre().compareTo(userName) == 0){
+            if(usuarios.get(i).getId() == id){
                 posArray = i;
                 nombre.setText(usuarios.get(i).nombre);
                 contraseña.setText(usuarios.get(i).contraseña);
@@ -73,17 +77,20 @@ public class Perfil extends AppCompatActivity {
     {
         if (Buscar.tituloCancion != null) {
         Intent i = new Intent(this, Lyrics.class);
+        i.putExtra("id",id);
         startActivity(i);
         }
     }
     public void onClickIrABuscar (View v)
     {
         Intent i = new Intent(this, Buscar.class);
+        i.putExtra("id",id);
         startActivity(i);
     }
     public void onClickIrABiblioteca (View v)
     {
             Intent i = new Intent(this, Biblioteca.class);
+            i.putExtra("id",id);
             startActivity(i);
     }
     public void onClicksubirFoto (View v)
@@ -101,6 +108,10 @@ public class Perfil extends AppCompatActivity {
         Toast.makeText(this, "Se han guardado los cambios correctamente", Toast.LENGTH_SHORT).show();
         String preferenciasEnString = gson.toJson(usuarios);
         preferenciasApp.edit().putString("usuarios", preferenciasEnString).apply();
+/*
+        String preferenciasEnString1 = gson.toJson(cancionesUsAnt);
+        preferenciasBilbioteca.edit().putString("Canciones", preferenciasEnString1).apply();
+        userName = usuarios.get(posArray).getNombre();*/
     }
 
 }
