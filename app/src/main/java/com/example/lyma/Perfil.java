@@ -43,7 +43,6 @@ public class Perfil extends AppCompatActivity {
         guardar = findViewById(R.id.buttonGuardarCambiosEP);
         tvURL = findViewById(R.id.editTextNombreEPURL);
         urlButton = findViewById(R.id.buttonURLEP2);
-
         Intent in = getIntent();
         id = in.getIntExtra("id",0);
 
@@ -67,9 +66,12 @@ public class Perfil extends AppCompatActivity {
                 nombre.setText(usuarios.get(i).nombre);
                 contraseña.setText(usuarios.get(i).contraseña);
                 correo.setText(usuarios.get(i).correo);
-                tvURL.setText(usuarios.get(i).imagen);
+                if (usuarios.get(i).imagen != null) {
+                    tvURL.setText(usuarios.get(i).imagen);
+                }
             }
         }
+
         onClicksubirFoto(null);
 
     }
@@ -112,6 +114,26 @@ public class Perfil extends AppCompatActivity {
         String preferenciasEnString1 = gson.toJson(cancionesUsAnt);
         preferenciasBilbioteca.edit().putString("Canciones", preferenciasEnString1).apply();
         userName = usuarios.get(posArray).getNombre();*/
+    }
+
+    public void onClickEliminarcuenta (View v)
+    {
+        for (int i = 0; i < usuarios.size(); i++) {
+
+            if(usuarios.get(i).getId() == id){
+
+                CrearCuenta.id = (usuarios.get(usuarios.size() - 1).getId()) + 1;
+                usuarios.remove(i);
+
+                String preferenciasEnString = gson.toJson(usuarios);
+                preferenciasApp.edit().putString("usuarios", preferenciasEnString).apply();
+
+                Toast.makeText(this, "Se ha eliminado tu cuenta", Toast.LENGTH_SHORT).show();
+                Intent inten = new Intent(this,MainActivity.class);
+                startActivity(inten);
+            }
+
+        }
     }
 
 }

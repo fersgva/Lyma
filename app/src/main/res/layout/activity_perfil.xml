@@ -217,6 +217,7 @@
         android:capitalize="characters"
         android:editable="false"
         android:fontFamily="@font/gotham_bold"
+        android:onClick="onClickEliminarcuenta"
         android:text="Eliminar Cuenta"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

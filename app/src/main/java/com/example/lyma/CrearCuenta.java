@@ -19,14 +19,14 @@ import java.util.ArrayList;
 
 public class CrearCuenta extends AppCompatActivity {
 
-    ArrayList<usuarios> usuarios;
+    static ArrayList<usuarios> usuarios;
     TextView usuario , correo , contraseña;
     Button crearCuenta;
     boolean iniciado = false;
     boolean existe = false;
     Gson gson;
     static SharedPreferences preferenciasApp;
-    int id;
+    static int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,16 @@ public class CrearCuenta extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<usuarios>>(){}.getType();
         usuarios = gson.fromJson(datosCargados, type);
 
+        if (usuarios.size() != 0)
+        {
+            id = usuarios.get(usuarios.size()-1).getId() + 1;
+        }
+        else
+        {
+            id = 0;
+        }
+
+
     }
     public void onClickCrearCuenta (View v)
     {
@@ -56,7 +66,8 @@ public class CrearCuenta extends AppCompatActivity {
         {
             usuarios = new ArrayList<>();
             System.out.println("Sin usuarios");
-            id = usuarios.size();
+
+
             usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),"https://i.imgur.com/nyJ8Atp.png", id));
 
             //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
@@ -67,7 +78,8 @@ public class CrearCuenta extends AppCompatActivity {
             Intent i = new Intent(this,Buscar.class);
             i.putExtra("id", id);
             startActivity(i);
-        }else{
+        }
+        else{
             System.out.println(usuarios.size());
             for (int j = 0; j < usuarios.size(); j++) {
 
@@ -79,6 +91,7 @@ public class CrearCuenta extends AppCompatActivity {
 
             }
             if(!existe){
+
                 usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),"https://i.imgur.com/nyJ8Atp.png",id));
                 //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
                 String usuariosEnString = gson.toJson(usuarios);

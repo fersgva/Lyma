@@ -40,6 +40,8 @@ public class Biblioteca extends AppCompatActivity {
         Intent i = getIntent();
         id = i.getIntExtra("id",0);
         System.out.println("Se va a cargar biblioteca de: " + id);
+
+
         gson = new Gson();
         PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + id,MODE_PRIVATE);
 
