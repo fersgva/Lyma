@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CrearCuenta extends AppCompatActivity {
 
@@ -24,16 +26,18 @@ public class CrearCuenta extends AppCompatActivity {
     Button crearCuenta;
     boolean iniciado = false;
     boolean existe = false;
-    Gson gson;
-    static SharedPreferences preferenciasApp;
+    Gson gson , gson1;
+    static SharedPreferences preferenciasApp,preferenciasCanciones;
     static int id;
+    int pequeño = 0;
+    Random rnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_cuenta);
         usuario = findViewById(R.id.editTextNombreEP);
-        correo =findViewById(R.id.editTextCorreoEEP);
+        correo = findViewById(R.id.editTextCorreoEEP);
         contraseña = findViewById(R.id.editTextContrasenaEP);
         crearCuenta = findViewById(R.id.buttonCrearCuenta5);
 
@@ -47,14 +51,19 @@ public class CrearCuenta extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<usuarios>>(){}.getType();
         usuarios = gson.fromJson(datosCargados, type);
 
-        if (usuarios.size() != 0)
-        {
-            id = usuarios.get(usuarios.size()-1).getId() + 1;
+            //id = 0;
+
+        //---------------------------------------------CARGADO CANCIONES------------------------------------------------
+
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        if (usuarios.size() == 0){
+
+            id = 1;
+
         }
-        else
-        {
-            id = 0;
-        }
+
 
 
     }
@@ -80,8 +89,15 @@ public class CrearCuenta extends AppCompatActivity {
             startActivity(i);
         }
         else{
+
             System.out.println(usuarios.size());
             for (int j = 0; j < usuarios.size(); j++) {
+
+                if(pequeño < usuarios.get(j).getId()){
+
+                    pequeño = usuarios.get(j).getId();
+
+                }
 
                 if(usuarios.get(j).getCorreo().compareTo(correo.getText().toString()) == 0){
 
@@ -92,6 +108,7 @@ public class CrearCuenta extends AppCompatActivity {
             }
             if(!existe){
 
+                id = pequeño + 1;
                 usuarios.add(new usuarios(usuario.getText().toString(),contraseña.getText().toString(),correo.getText().toString(),"https://i.imgur.com/nyJ8Atp.png",id));
                 //PROCESO DE GUARDADO CON LIBRERÍAS DE GSON.
                 String usuariosEnString = gson.toJson(usuarios);

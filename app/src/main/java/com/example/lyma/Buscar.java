@@ -34,14 +34,14 @@ import java.util.ArrayList;
 public class Buscar extends AppCompatActivity {
 
     static ArrayList<Cancion> cancionesBuscadas = new ArrayList<>(); //Minúscula la variable.
-    ListView buscar;
+    static ListView buscar;
     Button Boton_buscar;
     TextView textIntroducir;
     static Adaptador adaptador;
     String busqueda = " ";
     public static String tituloCancion, artistaCancion, urlPortadaCancion;
     static ImageView imagenPortada;
-    int id;
+    static int id;
 
     static Gson gson;
     static SharedPreferences PreferenciasBiblioteca;
@@ -57,7 +57,9 @@ public class Buscar extends AppCompatActivity {
 
         Intent i = getIntent();
         id = i.getIntExtra("id",0);
-        System.out.println("Se está utilizando biblioteca de: " + id);
+        System.out.println("Se está utilizando biblioteca de es BUSCAR: " + id);
+
+        cancionesBuscadas.clear();
 
         gson = new Gson();
         PreferenciasBiblioteca = getSharedPreferences("com.example.lymas2" + id,MODE_PRIVATE);
@@ -82,7 +84,7 @@ public class Buscar extends AppCompatActivity {
                 tituloCancion = cancionesBuscadas.get(position).titulo;
                 artistaCancion = cancionesBuscadas.get(position).artistaNombre;
                 urlPortadaCancion = cancionesBuscadas.get(position).urlFoto;
-                i.putExtra("id",id);
+                i.putExtra("id",Buscar.id);
                 startActivity(i);
             }
         });

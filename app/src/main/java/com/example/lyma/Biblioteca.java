@@ -40,7 +40,7 @@ public class Biblioteca extends AppCompatActivity {
 
         Intent i = getIntent();
         id = i.getIntExtra("id",0);
-        System.out.println("Se va a cargar biblioteca de: " + id);
+        System.out.println("Se va a cargar biblioteca de es BIBLIOTECA: " + id);
 
 
         gson = new Gson();

@@ -58,7 +58,7 @@ public class Lyrics extends AppCompatActivity{
         Intent i = getIntent();
         id = i.getIntExtra("id",0);
 
-        System.out.println("Se esta usando la biblioteca de " + id);
+        System.out.println("Se esta usando la biblioteca de es LYRICS" + id);
 
         player = new MediaPlayer();
         if(nomArtistaURL.contains(",")){

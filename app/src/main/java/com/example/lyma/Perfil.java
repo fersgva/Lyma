@@ -26,10 +26,11 @@ public class Perfil extends AppCompatActivity {
     int posArray,id;
     TextView nombre , correo , contraseña , tvURL;
     Button eliminar , guardar, urlButton;
-    Gson gson;
+    Gson gson , gson1;
     static SharedPreferences preferenciasApp;
     static SharedPreferences preferenciasBilbioteca;
     ArrayList<usuarios> usuarios;
+    ArrayList<Cancion> cancionEliminar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,19 @@ public class Perfil extends AppCompatActivity {
         usuarios = gson.fromJson(datosCargados, type);
 
         //---------------------------------------------------------------------------------------------------------------------------------------
+        //--------------------------------------------------------Cargado de Canciones-----------------------------------------------------------
+        gson1 = new Gson();
+        preferenciasBilbioteca = getSharedPreferences("com.example.lymas2" + id,MODE_PRIVATE);
+
+        //CARGADO DE DATOS.
+        String datosCargados1 = preferenciasBilbioteca.getString("Canciones", null);
+
+        //Debido a que el tipo no es sólo un único objeto, si no una lista, debemos crear un tipo basado en esa lista.
+        Type type1 = new TypeToken<ArrayList<Cancion>>(){}.getType();
+        cancionEliminar = gson.fromJson(datosCargados1, type1);
+        //--------------------------------------------------------------------------------------------------------------------------------------
+
+
 
         for (int i = 0; i < usuarios.size(); i++) {
 
@@ -84,7 +98,7 @@ public class Perfil extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "Elige una canción antes de ir a Lyrics.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Elige una canción antes de ir a Lyrics.1", Toast.LENGTH_SHORT).show();
         }
     }
     public void onClickIrABuscar (View v)
@@ -122,15 +136,45 @@ public class Perfil extends AppCompatActivity {
 
     public void onClickEliminarcuenta (View v)
     {
-        for (int i = 0; i < usuarios.size(); i++) {
+        for (int i = 0; i <= usuarios.size(); i++) {
 
             if(usuarios.get(i).getId() == id){
 
-                CrearCuenta.id = (usuarios.get(usuarios.size() - 1).getId()) + 1;
+                //CrearCuenta.id = (usuarios.get(usuarios.size() - 1).getId()) + 1;
                 usuarios.remove(i);
+
+                if(cancionEliminar == null){
+
+                    cancionEliminar.clear();
+
+                }
+                else{
+
+                    cancionEliminar.clear();
+
+                    if(Biblioteca.adaptador == null){
+
+
+
+                    }else{
+
+                        Biblioteca.adaptador.notifyDataSetChanged();
+
+                    }
+
+
+                }
+
+
+
 
                 String preferenciasEnString = gson.toJson(usuarios);
                 preferenciasApp.edit().putString("usuarios", preferenciasEnString).apply();
+
+
+
+                String preferenciasBibliotecaEliminar = gson1.toJson(cancionEliminar);
+                preferenciasBilbioteca.edit().putString("Canciones",preferenciasBibliotecaEliminar).apply();
 
                 Toast.makeText(this, "Se ha eliminado tu cuenta", Toast.LENGTH_SHORT).show();
                 Intent inten = new Intent(this,MainActivity.class);
