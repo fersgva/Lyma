@@ -31,7 +31,7 @@ public class Biblioteca extends AppCompatActivity {
     String tituloCancion,artistaCancion,urlPortadaCancion;
     Gson gson;
     SharedPreferences PreferenciasBiblioteca;
-    int id;
+    static int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,7 @@ public class Biblioteca extends AppCompatActivity {
                 Buscar.artistaCancion = artistaCancion;
                 urlPortadaCancion = Canciones.get(position).urlFoto;
                 Buscar.urlPortadaCancion = urlPortadaCancion;
+                i.putExtra("id",Biblioteca.id);
                 startActivity(i);
             }
         });

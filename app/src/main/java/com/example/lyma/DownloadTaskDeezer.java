@@ -1,6 +1,7 @@
 package com.example.lyma;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -45,6 +46,7 @@ public class DownloadTaskDeezer extends AsyncTask<String, Void, Void>
         }
         catch (IOException | JSONException e)
         {
+            Lyrics.urlDeezer = null;
             e.printStackTrace();
         }
         return null;

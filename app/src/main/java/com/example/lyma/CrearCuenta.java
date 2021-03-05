@@ -58,9 +58,10 @@ public class CrearCuenta extends AppCompatActivity {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        if (usuarios.size() == 0){
+        if (usuarios == null){
 
             id = 1;
+            usuarios = new ArrayList<>();
 
         }
 

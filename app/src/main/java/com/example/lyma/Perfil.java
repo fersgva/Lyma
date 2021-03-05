@@ -82,11 +82,12 @@ public class Perfil extends AppCompatActivity {
                 correo.setText(usuarios.get(i).correo);
                 if (usuarios.get(i).imagen != null) {
                     tvURL.setText(usuarios.get(i).imagen);
+                    onClicksubirFoto(null);
                 }
             }
         }
 
-        onClicksubirFoto(null);
+
 
     }
     public void onClickIrALyrics (View v)
@@ -98,7 +99,7 @@ public class Perfil extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(this, "Elige una canción antes de ir a Lyrics.1", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Elige una canción antes de ir a Lyrics", Toast.LENGTH_SHORT).show();
         }
     }
     public void onClickIrABuscar (View v)
@@ -136,7 +137,7 @@ public class Perfil extends AppCompatActivity {
 
     public void onClickEliminarcuenta (View v)
     {
-        for (int i = 0; i <= usuarios.size(); i++) {
+        for (int i = 0; i < usuarios.size(); i++) {
 
             if(usuarios.get(i).getId() == id){
 

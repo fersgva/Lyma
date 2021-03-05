@@ -47,7 +47,9 @@
         android:id="@+id/imageView_Play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="17dp"
         android:clickable="true"
         android:onClick="playCancion"
         app:layout_constraintStart_toEndOf="@+id/imageViewPortada"
@@ -56,19 +58,19 @@
 
     <SeekBar
         android:id="@+id/seekBar_Cancion"
-        android:layout_width="182dp"
-        android:layout_height="24dp"
+        android:layout_width="206dp"
+        android:layout_height="21dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="22dp"
         android:background="#00B59292"
         app:layout_constraintStart_toEndOf="@+id/imageView_Play"
         app:layout_constraintTop_toTopOf="@+id/textView_fondoRepro" />
 
     <ImageView
         android:id="@+id/imageViewPortada"
-        android:layout_width="51dp"
-        android:layout_height="49dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="7dp"
         android:layout_marginLeft="7dp"
         android:layout_marginTop="8dp"

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -31,6 +32,7 @@ import java.util.TimerTask;
 public class Lyrics extends AppCompatActivity{
     ImageView foto;
     static ImageView play;
+    static Context contexto;
     SeekBar cancion;
     static MediaPlayer player;
     public static String urlDeezer;
@@ -42,7 +44,7 @@ public class Lyrics extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lyrics);
-
+        contexto = this;
         foto = findViewById(R.id.imageViewPortada);
         play = findViewById(R.id.imageView_Play);
         cancion = findViewById(R.id.seekBar_Cancion);
@@ -100,6 +102,7 @@ public class Lyrics extends AppCompatActivity{
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
                     player.seekTo(progress);
+
             }
 
             @Override
@@ -109,6 +112,7 @@ public class Lyrics extends AppCompatActivity{
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+
 
             }
         });
@@ -132,6 +136,8 @@ public class Lyrics extends AppCompatActivity{
 
         } catch (Exception e) {
             e.printStackTrace();
+            play.setVisibility(View.INVISIBLE);
+            Toast.makeText(contexto, "NO DISPONEMOS DE ESTE AUDIO EN NUESTRA BASE DE DATOS.", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -165,9 +171,20 @@ public class Lyrics extends AppCompatActivity{
             public void run() {
 
                 cancion.setProgress(player.getCurrentPosition());
+
+                if (cancion.getProgress() >= player.getDuration())
+                {
+                    cancion.setProgress(0);
+                    player.pause();
+                    player.seekTo(0);
+                    play.setImageResource(android.R.drawable.ic_media_play);
+                    this.cancel();
+                }
             }
         },0,1000);
+
     }
+
 
     public void onClickIrABuscar (View v)
     {
