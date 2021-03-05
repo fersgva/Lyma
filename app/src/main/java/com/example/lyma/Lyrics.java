@@ -72,13 +72,14 @@ public class Lyrics extends AppCompatActivity{
         }
 
         nomArtistaURL = nomArtistaURL.replaceAll(" ", "");
+        nomArtistaURL = nomArtistaURL.replaceAll("\\$", "s");
         nomArtistaURL = nomArtistaURL.toLowerCase();
         nomArtistaURL = Normalizer.normalize(nomArtistaURL, Normalizer.Form.NFD);
         nomArtistaURL = nomArtistaURL.replaceAll("[^\\p{ASCII}]", "");
 
         String nomCancionURL = nomCancion;
         nomCancionURL = nomCancionURL.toLowerCase();
-        nomCancionURL = nomCancionURL.replaceAll("[()!¡¿? '’/<>﹤﹥+*.#]", "");
+        nomCancionURL = nomCancionURL.replaceAll("[()!¡¿? '’/<>﹤﹥+*.#$]", "");
         nomCancionURL = Normalizer.normalize(nomCancionURL, Normalizer.Form.NFD);
         nomCancionURL = nomCancionURL.replaceAll("[^\\p{ASCII}]", "");
 
@@ -131,6 +132,7 @@ public class Lyrics extends AppCompatActivity{
         });
         try {
             player.setDataSource(urlDeezer);
+            System.out.println("Hola de ERROR " + urlDeezer);
             player.prepareAsync();
 
 
